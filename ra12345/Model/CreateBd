@@ -36,3 +36,61 @@ CREATE table IF NOT EXISTS livro_autor (
     FOREIGN KEY (idLivro) REFERENCES livro (id),
     FOREIGN KEY (idAutor) REFERENCES autor (id)
 );
+
+
+/* ------ comandos para a criação das tabelas ----- */
+
+CREATE table IF NOT EXISTS autor (
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(255) NOT NULL,
+    email varchar(255) NOT null,
+    formacao varchar(255) NOT NULL,
+    foto VARCHAR(255)
+);
+
+CREATE table IF NOT EXISTS editora (
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(255) NOT NULL,
+    endereco varchar(255),
+    cidade varchar(255),
+    email varchar(255),
+    telefone varchar(45)
+);
+
+CREATE table IF NOT EXISTS livro (
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    idEditora int NOT NULL,
+    titulo varchar(255) NOT NULL,
+    totalPaginas varchar(255) NOT null,
+    edicao varchar(255) NOT NULL,
+    isbn VARCHAR(45) NOT NULL,
+    ano YEAR(4) NOT NULL,
+    fotoCapa VARCHAR(255),
+    FOREIGN KEY (idEditora) REFERENCES editora (id)
+);
+
+CREATE table IF NOT EXISTS livro_autor (
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    idLivro int NOT NULL,
+    idAutor int NOT NULL,
+    FOREIGN KEY (idLivro) REFERENCES livro (id),
+    FOREIGN KEY (idAutor) REFERENCES autor (id)
+);
+
+
+INSERT INTO autor (nome, email, formacao)
+    VALUES
+    ('Jorge Amado', 'jorgin@gmail.com', 'Escritor'),
+    ('Ruy Castro', 'ruy@gmail.com', 'Escritor'),
+    ('Carlos Drummond', 'carlin@gmail.com', 'Escritor'),
+    ('Fernando Pessoa', 'fernandin@gmail.com', 'Escritor'),
+    ('Philip Roth', 'phi@gmail.com', 'Escritor')
+;
+
+INSERT INTO editora (nome, endereco, cidade, email, telefone)
+    VALUES
+    ('Saraiva', 'Praça da Sé, 423', 'São Paulo', 'saraiva@sac.com.br', '(11)5200-0650'),
+    ('Companhia das Letras', 'Praca Floriano, 19', 'Rio de Janeiro', 'comp@letras.com.br', '(11) 3707-3500'),
+    ('Rocco', 'Rua do Passeio, 38', 'Rio de Janeiro', 'rocco@rocco.com.br', '(21) 3525-2000'),
+    ('Intriseca', 'Rua Marquês de São Vicente, 99', 'Rio de Janeiro', 'contato@intriseca.com.br', '(21) 3206-7400')
+;

@@ -1,0 +1,203 @@
+<?php
+class Repositorio
+{
+    private $connect;
+
+    public function setConexao($conexao)
+    {
+        $this->conexao = $conexao;
+    }
+
+    private function listar($tabela, $classe)
+    {
+        $resultado = $this->conexao->query("SELECT * FROM {$tabela}");
+        $registros = [];
+        while ($linha = $resultado->fetch_object($classe)) {
+            $registros[] = $linha;
+        }
+        return $registros;
+    }
+
+    public function listarEditoras()
+    {
+        return $this->listar("editoras", Editora::class);
+    }
+
+    public function listarLivros()
+    {
+        return $this->listar("livros", Livro::class);
+    }
+
+    public function listarAutores()
+    {
+        return $this->listar("autores", Autor::class);
+    }
+
+    public function salvarAutor($nome, $email, $id = false)
+    {
+        if (false === $id) {
+            $prepare = $this->conexao->prepare("INSERT INTO autores (nome, email) VALUES (?,?)");
+            $prepare->bind_param("ss", $nome, $email);
+        } else {
+            $prepare = $this->conexao->prepare("UPDATE autores SET nome=?, email=? WHERE id=? LIMIT 1");
+            $prepare->bind_param("ssi", $nome, $email, $id);
+        }
+        $prepare->execute();
+    }
+
+    public function salvarEditora($nome, $cidade, $id = false)
+    {
+        if (false === $id) {
+            $prepare = $this->conexao->prepare("INSERT INTO editoras (nome, cidade) VALUES (?,?)");
+            $prepare->bind_param("ss", $nome, $cidade);
+        } else {
+            $prepare = $this->conexao->prepare("UPDATE editoras SET nome=?, cidade=? WHERE id=? LIMIT 1");
+            $prepare->bind_param("ssi", $nome, $cidade, $id);
+        }
+        $prepare->execute();
+    }
+
+    private function find($id, $tabela, $classe)
+    {
+        $prepare = $this->conexao->query("SELECT * FROM {$tabela} WHERE id={$id} LIMIT 1");
+        if (false === $prepare) {
+            return new $classe;
+        }
+        return $prepare->fetch_object($classe);
+    }
+
+    public function findAutor($id)
+    {
+        $autor = $this->find($id, "autores", Autor::class);
+        $autor->setRepositorio($this);
+        return $autor;
+    }
+
+    public function findEditora($id)
+    {
+        $editora =  $this->find($id, "editoras", Editora::class);
+        $editora->setRepositorio($this);
+        return $editora;
+    }
+
+    public function findLivro($id)
+    {
+        $livro = $this->find($id, "livros", Livro::class);
+        $livro->setRepositorio($this);
+        return $livro;
+    }
+
+    public function salvarLivro($livro, $id = false)
+    {
+
+        $titulo = $livro->getTitulo();
+        $ano = $livro->getAno();
+        $editoraId = $livro->getEditora()->getId();
+        if (false === $id) {
+            $prepare = $this->conexao->prepare("INSERT INTO livros (titulo, ano, editora_id) VALUES (?,?,?)");
+            $prepare->bind_param("sii", $titulo, $ano, $editoraId);
+        } else {
+            $prepare = $this->conexao->prepare("UPDATE livros SET titulo=?, ano=?, editora_id=? WHERE id=? LIMIT 1");
+            $prepare->bind_param("siii", $titulo, $ano, $editoraId, $id);
+        }
+        $prepare->execute();
+        if (empty($id)) {
+            $id = $prepare->insert_id;
+        }
+        $this->conexao->query("DELETE FROM livros_autores WHERE livro_id ={$id}");
+        foreach ($livro->getAutores() as $autor) {
+            $autorId = $autor->getId();
+            $prepare = $this->conexao->prepare("INSERT INTO livros_autores (livro_id, autor_id) VALUES (?,?)");
+            $prepare->bind_param("ii", $id, $autorId);
+            $prepare->execute();
+        }
+    }
+
+
+    public function deletar($id, $tabela)
+    {
+        $prepare = $this->conexao->prepare("DELETE FROM {$tabela} WHERE id=? LIMIT 1");
+        $prepare->bind_param("i", $id);
+        $prepare->execute();
+    }
+
+    public function deletarAutor($id)
+    {
+        $this->deletar($id, "autores");
+    }
+
+    public function deletarLivro($id)
+    {
+        $this->deletar($id, "livros");
+    }
+
+    public function deletarEditora($id)
+    {
+        $this->deletar($id, "editoras");
+    }
+
+    public function loadEditoraByLivro($livro)
+    {
+        $id = $livro->getId();
+
+        if (empty($id)) {
+            return null;
+        }
+        $result = $this->conexao->query("SELECT E.id, E.nome, E.cidade FROM editoras E INNER JOIN livros L ON L.editora_id = E.id WHERE L.id = {$id} LIMIT 1");
+        return $result->fetch_object(Editora::class);
+    }
+
+    public function loadAutoresByLivro($livro)
+    {
+        $id = $livro->getId();
+        if (empty($id)) {
+            return [];
+        }
+        $prepare = $this->conexao->prepare("SELECT A.id, A.nome, A.email FROM autores A INNER JOIN livros_autores LA ON LA.autor_id = A.id WHERE LA.livro_id = ?");
+        $prepare->bind_param("i", $id);
+        $prepare->execute();
+        $result = $prepare->get_result();
+        $autores = [];
+        while ($autor = $result->fetch_object(Autor::class)) {
+            $autor->setRepositorio($this);
+            $autores[] = $autor;
+        }
+        return $autores;
+    }
+
+    public function loadLivrosByAutor($autor)
+    {
+        $id = $autor->getId();
+        if (empty($id)) {
+            return [];
+        }
+        $prepare = $this->conexao->prepare("SELECT L.* FROM livros L INNER JOIN livros_autores LA ON L.id = LA.livro_id WHERE LA.autor_id = ?");
+        $prepare->bind_param("i", $id);
+        $prepare->execute();
+        $result = $prepare->get_result();
+        $livros = [];
+        while ($livro = $result->fetch_object(Livro::class)) {
+            $livro->setRepositorio($this);
+            $livros[] = $livro;
+        }
+        return $livros;
+    }
+
+    public function loadLivrosByEditora($editora)
+    {
+        $id = $editora->getId();
+        if (empty($id)) {
+            return [];
+        }
+        $prepare = $this->conexao->prepare("SELECT * FROM `livros` WHERE editora_id = ?");
+        $prepare->bind_param("i", $id);
+        $prepare->execute();
+        $result = $prepare->get_result();
+        $livros = [];
+        while ($livro = $result->fetch_object(Livro::class)) {
+            $livro->setRepositorio($this);
+            $livros[] = $livro;
+        }
+        return $livros;
+    }
+}

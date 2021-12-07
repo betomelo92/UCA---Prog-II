@@ -1,0 +1,38 @@
+/* ------ comandos para a criação das tabelas ----- */
+
+CREATE table IF NOT EXISTS autor (
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(255) NOT NULL,
+    email varchar(255) NOT null,
+    formacao varchar(255) NOT NULL,
+    foto VARCHAR(255)
+);
+
+CREATE table IF NOT EXISTS editora (
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    nome varchar(255) NOT NULL,
+    endereco varchar(255),
+    cidade varchar(255),
+    email varchar(255),
+    telefone varchar(45)
+);
+
+CREATE table IF NOT EXISTS livro (
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    idEditora int NOT NULL,
+    titulo varchar(255) NOT NULL,
+    totalPaginas varchar(255) NOT null,
+    edicao varchar(255) NOT NULL,
+    isbn VARCHAR(45) NOT NULL,
+    ano YEAR(4) NOT NULL,
+    fotoCapa VARCHAR(255),
+    FOREIGN KEY (idEditora) REFERENCES editora (id)
+);
+
+CREATE table IF NOT EXISTS livro_autor (
+    id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    idLivro int NOT NULL,
+    idAutor int NOT NULL,
+    FOREIGN KEY (idLivro) REFERENCES livro (id),
+    FOREIGN KEY (idAutor) REFERENCES autor (id)
+);

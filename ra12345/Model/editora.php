@@ -2,14 +2,23 @@
 require_once "views/header.php";
 require_once "Class/connect.php";
 
-$url = $_GET['autor'];
-$sql = "SELECT nome FROM autor WHERE id = '" . $url . "'";
+$url = $_GET['editora'];
+$sql = "SELECT * FROM editora WHERE id = '" . $url . "'";
 $result = $connect->query($sql);
 
-$user_data = mysqli_fetch_assoc($result)
+$user_data = mysqli_fetch_assoc($result);
 
 ?>
-<h2 class="autorname"><?php echo $user_data['nome']; ?></h2>
+<h2 class="editname"><?php echo $user_data['nome']; ?></h2>
+
+
+<?php
+$sql = "SELECT * FROM livro WHERE idEditora = '" . $user_data['id'] . "'";
+
+$result = $connect->query($sql);
+$user_data = mysqli_fetch_assoc($result);
+?>
+
 
 <div class="m-5">
     <table class="table">

@@ -15,7 +15,7 @@
             while ($user_data = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
                 echo "<td>" . $user_data['id'] . "</td>";
-                echo "<td><a href='?editora=" . $user_data['nome'] . "'>" . $user_data['nome'] . "</a></td>";
+                echo "<td><a href='?editora=" . $user_data['id'] . "'>" . $user_data['nome'] . "</a></td>";
                 echo "<td>" . $user_data['endereco'] . "</td>";
                 echo "<td>" . $user_data['cidade'] . "</td>";
                 echo "<td>" . $user_data['email'] . "</td>";

@@ -1,3 +1,7 @@
+<div class="row">
+    <h2>Editoras</h2>
+</div>
+
 <div class="m-5">
     <table class="table">
         <thead>

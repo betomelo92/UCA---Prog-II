@@ -1,0 +1,11 @@
+
+
+.container .row {
+	margin: 50px 0px 0px 60px;
+}
+
+.container .row h3 {
+	font-style: normal;
+	display: inline;
+	font-size: 20px;
+}

@@ -9,8 +9,9 @@ $result = $connect->query($sql);
 $user_data = mysqli_fetch_assoc($result);
 
 ?>
-<h2 class="editname"><?php echo $user_data['nome']; ?></h2>
-
+<div class="row">
+    <h2><?php echo $user_data['nome']; ?></h2>
+</div>
 
 <?php
 $sql = "SELECT * FROM livro WHERE idEditora = '" . $user_data['id'] . "'";

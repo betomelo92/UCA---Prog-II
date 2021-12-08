@@ -9,7 +9,9 @@ $result = $connect->query($sql);
 $user_data = mysqli_fetch_assoc($result)
 
 ?>
-<h2 class="autorname"><?php echo $user_data['nome']; ?></h2>
+<div class="row">
+    <h2><?php echo $user_data['nome']; ?></h2>
+</div>
 
 
 <?php

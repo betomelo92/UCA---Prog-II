@@ -94,3 +94,11 @@ INSERT INTO editora (nome, endereco, cidade, email, telefone)
     ('Rocco', 'Rua do Passeio, 38', 'Rio de Janeiro', 'rocco@rocco.com.br', '(21) 3525-2000'),
     ('Intriseca', 'Rua Marquês de São Vicente, 99', 'Rio de Janeiro', 'contato@intriseca.com.br', '(21) 3206-7400')
 ;
+
+INSERT INTO livro (titulo, totalPaginas, edicao, isbn, ano, idEditora)
+    VALUES
+    ('Gabriela, Cravo e Canela', '336', '1ª', '9788535920987', '1958', '3'),
+    ('Dona Flor e seus Dois Maridos', '476', '1ª', '9788535911701', '1966', '3'),
+    ('Estrela Solitária - Um Brasileiro Chamado Garrincha', '520', '1ª', '8571644934', '1995', '3'),
+    ('As Extraordinárias viagens de Julio Verne', '1808', '2ª', '6555524138', '2021', '4')
+;

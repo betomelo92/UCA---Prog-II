@@ -30,17 +30,8 @@ if (isset($_GET['page'])) {
     }
 } elseif (isset($_GET['autor'])) {
     require_once "model/autor.php";
-
 } elseif (isset($_GET['livro'])) {
-    $url = $_GET['autor'];
-    $sql = "SELECT * FROM livro WHERE autor = " . $url;
-    $result = $connect->query($sql);
-    require_once "views/livroid.php";
-    
+    require_once "model/livro.php";
 } elseif (isset($_GET['editora'])) {
     require_once "model/editora.php";
-
-} else {
-    $sql = "SELECT * FROM livro";
-    $result = $connect->query($sql);
 }

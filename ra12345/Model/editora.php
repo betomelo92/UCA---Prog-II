@@ -14,11 +14,8 @@ $user_data = mysqli_fetch_assoc($result);
 
 <?php
 $sql = "SELECT * FROM livro WHERE idEditora = '" . $user_data['id'] . "'";
-
 $result = $connect->query($sql);
-$user_data = mysqli_fetch_assoc($result);
 ?>
-
 
 <div class="m-5">
     <table class="table">

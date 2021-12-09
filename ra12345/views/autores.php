@@ -10,7 +10,6 @@
                 <th scope="col">Nome</th>
                 <th scope="col">E-mail</th>
                 <th scope="col">Formação</th>
-                <th scope="col">Foto</th>
             </tr>
         </thead>
         <tbody>
@@ -21,7 +20,6 @@
                 echo "<td><a href='?autor=" . $user_data['id'] . "'>" . $user_data['nome'] . "</a></td>";
                 echo "<td>" . $user_data['email'] . "</td>";
                 echo "<td>" . $user_data['formacao'] . "</td>";
-                echo "<td>" . $user_data['foto'] . "</td>";
                 echo "</tr>";
             }
             ?>

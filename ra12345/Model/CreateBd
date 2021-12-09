@@ -1,5 +1,8 @@
 /* ------ comandos para a criação das tabelas ----- */
 
+CREATE DATABASE ra12345;
+USE ra12345;
+
 CREATE table IF NOT EXISTS autor (
     id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
     nome varchar(255) NOT NULL,
@@ -32,13 +35,13 @@ CREATE table IF NOT EXISTS livro (
 );
 
 
-INSERT INTO autor (nome, email, formacao)
+INSERT INTO autor (nome, email, formacao, foto)
     VALUES
-    ('Jorge Amado', 'jorgin@gmail.com', 'Escritor'),
-    ('Ruy Castro', 'ruy@gmail.com', 'Escritor'),
-    ('Carlos Drummond', 'carlin@gmail.com', 'Escritor'),
-    ('Fernando Pessoa', 'fernandin@gmail.com', 'Escritor'),
-    ('Philip Roth', 'phi@gmail.com', 'Escritor')
+    ('Jorge Amado', 'jorgin@gmail.com', 'Escritor', 'https://exame.com/wp-content/uploads/2018/12/GettyImages-119861708.jpg'),
+    ('Ruy Castro', 'ruy@gmail.com', 'Escritor', 'https://www.correio24horas.com.br//fileadmin/_processed_/0/9/csm_CASTRO__Ruy_b2bb139556.jpg'),
+    ('Carlos Drummond', 'carlin@gmail.com', 'Escritor', 'https://s2.glbimg.com/2tvJKhhfrz1ulyQRvbHunQEQojQ=/e.glbimg.com/og/ed/f/original/2019/10/31/carlos.drumond.png'),
+    ('Fernando Pessoa', 'fernandin@gmail.com', 'Escritor', 'https://www.portaldaliteratura.com/assets/files_autores/339.jpg'),
+    ('Philip Roth', 'phi@gmail.com', 'Escritor', 'https://www.portaldaliteratura.com/assets/files_autores/341.jpg')
 ;
 
 INSERT INTO editora (nome, endereco, cidade, email, telefone)
@@ -49,12 +52,12 @@ INSERT INTO editora (nome, endereco, cidade, email, telefone)
     ('Intriseca', 'Rua Marquês de São Vicente, 99', 'Rio de Janeiro', 'contato@intriseca.com.br', '(21) 3206-7400')
 ;
 
-INSERT INTO livro (titulo, totalPaginas, edicao, isbn, ano, idEditora, idAutor)
+INSERT INTO livro (titulo, totalPaginas, edicao, isbn, ano, fotoCapa, idEditora, idAutor)
     VALUES
-    ('Gabriela, Cravo e Canela', '336', '1ª', '9788535920987', '1958', '2', '1'),
-    ('Dona Flor e seus Dois Maridos', '476', '1ª', '9788535911701', '1966', '2', '1'),
-    ('Estrela Solitária - Um Brasileiro Chamado Garrincha', '520', '1ª', '8571644934', '1995', '2', '2'),
-    ('As Extraordinárias viagens de Julio Verne', '1808', '2ª', '6555524138', '2021', '3', '5'),
-    ('A Vida Mentirosa dos Adultos', '432', '1ª', '6555600004', '2020', '4', '3'),
-    ('O Que Aconteceu Com Annie', '288', '1ª', '855100476X', '2019', '1', '4')
+    ('Gabriela, Cravo e Canela', '336', '1ª', '9788535920987', '1958', 'https://images-na.ssl-images-amazon.com/images/I/81IyZdXmUqL.jpg', '2', '1'),
+    ('Dona Flor e seus Dois Maridos', '476', '1ª', '9788535911701', '1966', 'https://images-na.ssl-images-amazon.com/images/I/91VMhDELvhL.jpg', '2', '1'),
+    ('Estrela Solitária - Um Brasileiro Chamado Garrincha', '520', '1ª', '8571644934', '1995', 'https://images-na.ssl-images-amazon.com/images/I/91K6HYof63L.jpg', '2', '2'),
+    ('As Extraordinárias viagens de Julio Verne', '1808', '6ª', '6555524138', '2021', 'https://images-na.ssl-images-amazon.com/images/I/71wgomAPTQS.jpg', '3', '5'),
+    ('A Vida Mentirosa dos Adultos', '432', '1ª', '6555600004', '2020', 'https://www.rbsdirect.com.br/imagesrc/26252128.jpg?w=580', '4', '3'),
+    ('O Que Aconteceu Com Annie', '288', '1ª', '855100476X', '2019', 'https://m.media-amazon.com/images/I/41bAc8f84yL.jpg', '1', '4')
 ;

@@ -34,4 +34,8 @@ if (isset($_GET['page'])) {
     require_once "model/livro.php";
 } elseif (isset($_GET['editora'])) {
     require_once "model/editora.php";
+} else {
+    $sql = "SELECT * FROM autor";
+    $result = $connect->query($sql);
+    require_once "views/autores.php";
 }

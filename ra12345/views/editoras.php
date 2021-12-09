@@ -6,12 +6,12 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Nome</th>
-                <th scope="col">Endereço</th>
-                <th scope="col">Cidade</th>
-                <th scope="col">E-mail</th>
-                <th scope="col">Telefone</th>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Endereço</th>
+                <th>Cidade</th>
+                <th>E-mail</th>
+                <th>Telefone</th>
             </tr>
         </thead>
         <tbody>

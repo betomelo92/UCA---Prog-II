@@ -1,11 +1,90 @@
 
+html, body{
+	background-image: url(https://www.ba.senac.br/assets/images/bibliotecas.jpg);
+}
+
+.layer {
+	background-color: #081e35;
+    opacity: 0.95;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.navbar {
+	font-family: 'Franklin Gothic Medium', sans-serif;
+	background-color: #ffc400;
+	z-index: 1;
+}
+
+.navbar-brand {
+	font-size: 22px;
+	margin-left: 20px;
+	margin-right: 40px;
+}
+
+.navbar a {
+	color: white;
+	text-decoration: none;
+}
 
 .container .row {
-	margin: 50px 0px 0px 60px;
+	margin: 60px 0px 0px 80px;
+	color: white;
+}
+
+.container table {
+	font-family: 'Century Gothic', sans-serif;
+	color: white;
+	border-radius: 10px;
+	background-color: #04356994;
+}
+
+.container thead {
+	color: #ffc400;
+}
+
+.container th, .container td {
+	border: none;
+	font-size: 15px;
+}
+
+.container .row h2 {
+	font-family: 'Century Gothic', sans-serif;
+	font-size: 50px;
+	color: white;
+}
+
+.container .row h4{
+	display: inline;
+	font-weight: lighter;
+	font-size: 18px;	
+}
+
+.container .desc {
+	margin-right: 80px;
+	border-radius: 10px;
+	background-color: #04356994;
+	padding-top: 30px;
+	padding-bottom: 20px;
+
 }
 
 .container .row h3 {
-	font-style: normal;
+	font-family: 'Century Gothic', sans-serif;
 	display: inline;
-	font-size: 20px;
+	font-size: 18px;
+	margin-bottom: 18px;
+}
+
+.container .desc .left {
+	text-align: right;
+	font-weight:bold;
+	font-style: italic;
+}
+
+.container .desc .col-9 {
+	margin-left: 0px;
+	padding-left: 0;
+
 }
